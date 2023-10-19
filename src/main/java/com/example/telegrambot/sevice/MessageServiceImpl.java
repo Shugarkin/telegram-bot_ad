@@ -1,5 +1,6 @@
 package com.example.telegrambot.sevice;
 
+import com.example.telegrambot.model.Car;
 import com.example.telegrambot.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ public class MessageServiceImpl implements MessageService {
     private final UserServiceTelegram userService;
 
     private final KeyboardHandler keyboardHandler;
+
+    private final CarService carService;
 
     @Override
     public SendMessage whatAreWeDoing(Update update) {
@@ -32,19 +35,19 @@ public class MessageServiceImpl implements MessageService {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
 
-        String[] split = text.split(", ");
+        String[] split = text.split(" ");
 
         if (split.length == 3) {
-            doUser(update, split);
-        }
-        if (split.length == 2) {
-
-        }
+            sendMessage.setText(doUser(update, split));
+        } else if (split.length == 2) {
+            sendMessage.setText(doCar(update, split));
+        } else {
         sendMessage.setText("Ошибка с получением данных");
+        }
         return sendMessage;
     }
 
-    private String doUser(Update update, String[] split) {
+    private String doUser(Update update, String... split) {
         try {
             User user = User.builder()
                     .nickName(update.getMessage().getFrom().getUserName())
@@ -56,6 +59,18 @@ public class MessageServiceImpl implements MessageService {
             return userService.doUsers(user).toString();
         } catch (Exception e) {
             return "Ошибка с добавлением дынных пользователя";
+        }
+    }
+
+    private String doCar(Update update, String... split) {
+        try {
+            Car car = Car.builder()
+                    .carNumber(split[0].toLowerCase())
+                    .carRegion(Integer.parseInt(split[1]))
+                    .build();
+            return carService.doCar(update.getMessage().getFrom().getUserName(), car);
+        } catch (Exception e) {
+            return "Ошибка с добавлением данных транспорта";
         }
     }
 

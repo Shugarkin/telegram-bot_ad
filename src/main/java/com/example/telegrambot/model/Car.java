@@ -37,6 +37,15 @@ public class Car {
         this.user = user;
     }
 
+    @Override
+    public String toString() {
+        return "Транспорт " + "\n" +
+                "ID транспорта=" + id +
+                "Номер='" + carNumber + '\'' + "\n" +
+                "Регон=" + carRegion + "\n" +
+                "Пользователь=" + user.getFirstName();
+    }
+
 
     //список неисправностей контретной машины
     //private Malfunctions listMalfunctions;

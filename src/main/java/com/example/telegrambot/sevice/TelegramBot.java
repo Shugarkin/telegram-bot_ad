@@ -47,8 +47,8 @@ public class TelegramBot extends TelegramLongPollingBot {
         try {
             execute(messageHandler.sendKeyBoardMessage(update.getMessage().getChatId()));
             execute(new SendMessage(update.getMessage().getChatId().toString(),
-                    "Приветствую! \n Для использования бота сначала нужно добавить свои данные. " +
-                            "\nПожалуйста введите свое имя, фамилию и email через запятую и пробел. \nПример данных: \nВася, Пупкин, vasia@mail.ru"));
+                    "Приветствую! \nДля использования бота сначала нужно добавить свои данные. " +
+                            "\nПожалуйста введите свое имя, фамилию и email через пробел. \nПример данных: \nВася Пупкин vasia@mail.ru"));
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }

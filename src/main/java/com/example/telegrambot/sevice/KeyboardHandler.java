@@ -32,10 +32,23 @@ public class KeyboardHandler {
         List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
         keyboardButtonsRow2.add(inlineKeyboardButton2);
 
+        InlineKeyboardButton inlineKeyboardButton3 = new InlineKeyboardButton();
+        inlineKeyboardButton3.setText("Добавить мой транспорт");
+        inlineKeyboardButton3.setCallbackData(UserCommand.ADD_CAR.toString());
+        List<InlineKeyboardButton> keyboardButtonsRow3 = new ArrayList<>();
+        keyboardButtonsRow3.add(inlineKeyboardButton3);
+
+        InlineKeyboardButton inlineKeyboardButton4 = new InlineKeyboardButton();
+        inlineKeyboardButton4.setText("Удалить транспорт");
+        inlineKeyboardButton4.setCallbackData(UserCommand.DELETE_CAR.toString());
+        List<InlineKeyboardButton> keyboardButtonsRow4 = new ArrayList<>();
+        keyboardButtonsRow4.add(inlineKeyboardButton4);
 
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         rowList.add(keyboardButtonsRow1);
         rowList.add(keyboardButtonsRow2);
+        rowList.add(keyboardButtonsRow3);
+        rowList.add(keyboardButtonsRow4);
         inlineKeyboardMarkup.setKeyboard(rowList);
 
         SendMessage sendMessage = new SendMessage();

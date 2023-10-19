@@ -36,9 +36,9 @@ public class User {
     @Override
     public String toString() {
         return  "id=" + id + "\n" +
-                "nickName='" + nickName + '\'' + "\n" +
-                "firstName='" + firstName + '\'' + "\n" +
-                "lastName='" + lastName + '\'' + "\n" +
+                "Telegram NickName='" + nickName + '\'' + "\n" +
+                "Имя='" + firstName + '\'' + "\n" +
+                "Фамилия='" + lastName + '\'' + "\n" +
                 "email='" + email + '\'';
     }
 }

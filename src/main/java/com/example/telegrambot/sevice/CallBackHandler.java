@@ -19,21 +19,21 @@ public class CallBackHandler {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(update.getCallbackQuery().getMessage().getChatId());
 
-
          if (text.equals(UserCommand.MY_DATA.toString())) {
             sendMessage.setText(userServiceTelegram.getUserByNickname(update.getCallbackQuery().getMessage().getChat().getUserName()));
             return sendMessage;
         } else if (text.equals(UserCommand.UPDATE_MY_DATA.toString())) {
-
              sendMessage.setText("Введите свои новые данные. \nПожалуйста введите свое имя, фамилию и email через запятую и пробел. \nПример данных: \nВася, Пупкин, vasia@mail.ru");
             return  sendMessage;
         } else if (text.equals(UserCommand.MY_MALFUNCTION.toString())) {
             return null;
-        }
-
-
-
-
+        } else if (text.equals(UserCommand.ADD_CAR.toString())) {
+             sendMessage.setText("Введите номер и регион своего транспорта кириллицей через пробел. \nПример: а123рх 77");
+             return sendMessage;
+         } else if (text.equals(UserCommand.DELETE_CAR.toString())) {
+             sendMessage.setText("Для удаления введите номер и регион своего транспорта кириллицей через пробел. \nПример: а123рх 77");
+             return sendMessage;
+         }
 
 
 //        if (update.getCallbackQuery().getData().equals(UserCommand)) {
