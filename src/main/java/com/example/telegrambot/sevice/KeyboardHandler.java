@@ -44,11 +44,18 @@ public class KeyboardHandler {
         List<InlineKeyboardButton> keyboardButtonsRow4 = new ArrayList<>();
         keyboardButtonsRow4.add(inlineKeyboardButton4);
 
+        InlineKeyboardButton inlineKeyboardButton5 = new InlineKeyboardButton();
+        inlineKeyboardButton5.setText("Добавить неисправность");
+        inlineKeyboardButton5.setCallbackData(UserCommand.ADD_MALFUNCTION.toString());
+        List<InlineKeyboardButton> keyboardButtonsRow5 = new ArrayList<>();
+        keyboardButtonsRow5.add(inlineKeyboardButton5);
+
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         rowList.add(keyboardButtonsRow1);
         rowList.add(keyboardButtonsRow2);
         rowList.add(keyboardButtonsRow3);
         rowList.add(keyboardButtonsRow4);
+        rowList.add(keyboardButtonsRow5);
         inlineKeyboardMarkup.setKeyboard(rowList);
 
         SendMessage sendMessage = new SendMessage();

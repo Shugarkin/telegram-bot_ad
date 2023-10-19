@@ -9,7 +9,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.Arrays;
 
 @Component
 @AllArgsConstructor
@@ -23,7 +22,10 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private final MessageService messageService;
 
+    private final MalfunctionService malfunctionService;
 
+
+    добавить флаги для остальных функций и подумать про многопоточность иначе работать не будет
     @Override
     public void onUpdateReceived(Update update) {
         if(update.hasMessage()){
@@ -31,6 +33,14 @@ public class TelegramBot extends TelegramLongPollingBot {
                 if (update.getMessage().getText().equals("/start")) {
                     sendMessageHello(update);
                     return;
+                }
+                if (callBackHandler.isMalfunctionFlag()) {
+                    try {
+                        execute(malfunctionService.addMalfunction(update, update.getMessage().getText()));
+                        return;
+                    } catch (TelegramApiException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
                 try {
                     execute(messageService.whatAreWeDoing(update));
@@ -52,7 +62,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             execute(messageHandler.sendKeyBoardMessage(update.getMessage().getChatId()));
             execute(new SendMessage(update.getMessage().getChatId().toString(),
                     "Приветствую! \nДля использования бота сначала нужно добавить свои данные. " +
-                            "\nПожалуйста введите свое имя, фамилию и email через пробел. \nПример данных: \nВася Пупкин vasia@mail.ru"));
+                            "\nПожалуйста, введите свое имя, фамилию и email через пробел. \nПример данных: \nВася Пупкин vasia@mail.ru"));
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }

@@ -21,11 +21,6 @@ public class Malfunctions {
     @Column(name = "id")
     private long id;
 
-    //тип неисправности
-    @Column(name = "type_malfunctions")
-    @Enumerated(EnumType.STRING)
-    private MalfunctionType type;
-
     //дата
     @Column(name = "create_on")
     private LocalDateTime createOn;

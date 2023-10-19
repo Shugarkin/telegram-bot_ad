@@ -22,38 +22,30 @@ public class MalfunctionServiceImpl implements MalfunctionService{
 
     private final CarRepository carRepository;
 
-    private Object lock = new Object();
+    private final CallBackHandler callBackHandler;
 
     private String carNumber;
 
     private AllMalfunction mal;
 
     public String handleMessage(Update update, String carNumberOrMal) {
-        synchronized (lock) {
-            if (mal == null) {
-                mal = AllMalfunction.valueOf(carNumberOrMal);
-            } else if (carNumber == null) {
-                carNumber = carNumberOrMal;
-            }
-
-            if (carNumber != null || mal != null) {
-                // Оба поля заполнены, сохраняем в репозиторий
-                NewMalfunctionDto malfunction = NewMalfunctionDto.builder().carNumber(carNumber).mal(mal).build();
-                //malfunctionRepository.save(malfunction);
-                String s = saveMalfunction(update, malfunction);
-                // Снимаем блокировку и возобновляем поток
-                lock.notifyAll();
-                return s;
-            } else {
-                // Ожидаем заполнения обоих полей
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    return "Время ушло";
-                }
-            }
+        if (mal == null) {
+            mal = AllMalfunction.valueOf(carNumberOrMal);
+        } else {
+            carNumber = carNumberOrMal;
         }
-        return "Пока не идет";
+        if (carNumber != null && mal != null) {
+            // Оба поля заполнены, сохраняем в репозиторий
+            NewMalfunctionDto malfunction = NewMalfunctionDto.builder().carNumber(carNumber).mal(mal).build();
+            String s = saveMalfunction(update, malfunction);
+
+            carNumber = null;
+            mal = null;
+            callBackHandler.setMalfunctionFlag(false);
+            return s;
+        } else {
+            return "Теперь введите номер транспорта кириллицей через пробел. \nПример: а123рх 77";
+        }
     }
 
 
@@ -62,8 +54,8 @@ public class MalfunctionServiceImpl implements MalfunctionService{
     private String saveMalfunction(Update update, NewMalfunctionDto malfunctionDto) {
         Malfunctions malfunctions = new Malfunctions();
         String[] split = carNumber.split(" ");
-        Car car = carRepository.findByCarNumberAndCarRegion(split[0], Integer.parseInt(split[1])).orElseThrow();
-
+        Car car = carRepository.findByCarNumberAndCarRegion(split[0], Integer.parseInt(split[1])).orElse(new Car());
+        if (car.getId() == 0) return "Спасибо большое!!!";
         User user = userRepository.findByNickName(update.getMessage().getFrom().getUserName());
 
         if (car.getUser().getId() == user.getId()) return "Вы отправляете запрос о неисправности сами себе";

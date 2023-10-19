@@ -14,6 +14,8 @@ public class CallBackHandler {
 
     private final UserServiceTelegram userServiceTelegram;
 
+    private boolean malfunctionFlag = false;
+
     public SendMessage callBack(Update update) {
         String text = update.getCallbackQuery().getData();
         SendMessage sendMessage = new SendMessage();
@@ -25,8 +27,10 @@ public class CallBackHandler {
         } else if (text.equals(UserCommand.UPDATE_MY_DATA.toString())) {
              sendMessage.setText("Введите свои новые данные. \nПожалуйста введите свое имя, фамилию и email через запятую и пробел. \nПример данных: \nВася, Пупкин, vasia@mail.ru");
             return  sendMessage;
-        } else if (text.equals(UserCommand.MY_MALFUNCTION.toString())) {
-            return null;
+        } else if (text.equals(UserCommand.ADD_MALFUNCTION.toString())) {
+             malfunctionFlag = true;
+             sendMessage.setText("Выберете неисправность");
+            return sendMessage;
         } else if (text.equals(UserCommand.ADD_CAR.toString())) {
              sendMessage.setText("Введите номер и регион своего транспорта кириллицей через пробел. \nПример: а123рх 77");
              return sendMessage;
@@ -46,4 +50,11 @@ public class CallBackHandler {
     }
 
 
+    public boolean isMalfunctionFlag() {
+        return malfunctionFlag;
+    }
+
+    public void setMalfunctionFlag(boolean malfunctionFlag) {
+        this.malfunctionFlag = malfunctionFlag;
+    }
 }
