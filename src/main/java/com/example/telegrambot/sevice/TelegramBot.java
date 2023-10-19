@@ -1,5 +1,6 @@
 package com.example.telegrambot.sevice;
 
+import com.example.telegrambot.model.AllMalfunction;
 import com.example.telegrambot.model.Bot;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -7,6 +8,8 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.util.Arrays;
 
 @Component
 @AllArgsConstructor
@@ -19,6 +22,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final KeyboardHandler messageHandler;
 
     private final MessageService messageService;
+
 
     @Override
     public void onUpdateReceived(Update update) {

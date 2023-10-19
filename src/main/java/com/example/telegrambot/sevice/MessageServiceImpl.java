@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +15,8 @@ public class MessageServiceImpl implements MessageService {
     private final UserServiceTelegram userService;
 
     private final KeyboardHandler keyboardHandler;
+
+    private final MalfunctionService malfunctionService;
 
     private final CarService carService;
 
@@ -41,6 +44,8 @@ public class MessageServiceImpl implements MessageService {
             sendMessage.setText(doUser(update, split));
         } else if (split.length == 2) {
             sendMessage.setText(doCar(update, split));
+        } else if (split.length == 1) {
+            return malfunctionService.addMalfunction(update, update.getMessage().getText());
         } else {
         sendMessage.setText("Ошибка с получением данных");
         }

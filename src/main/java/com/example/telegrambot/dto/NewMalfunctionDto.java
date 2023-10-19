@@ -1,5 +1,6 @@
 package com.example.telegrambot.dto;
 
+import com.example.telegrambot.model.AllMalfunction;
 import jakarta.validation.Valid;
 import lombok.Builder;
 import lombok.Data;
@@ -8,8 +9,8 @@ import lombok.Data;
 @Builder
 public class NewMalfunctionDto {
 
-    @Valid
-    private NewCarDto carNumber;
+ //   @Valid
+    private String carNumber;
 
-    private NewMalfunction mal;
+    private AllMalfunction mal;
 }
