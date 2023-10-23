@@ -2,31 +2,31 @@ package com.example.telegrambot.model;
 
 public enum AllMalfunction {
 
-    ВЫТЕКАНИЕ_ЖИДКОСТИ_ИЗ_ПОД_ДНИЩА_АВТОМОБИЛЯ,
+    LIQUID_LEAKING_FROM_UNDER_BOTTOM_CAR,
 
-    НЕИЗВЕСТНЫЕ_РУДИМЕНТЫ_ПОД_ДНИЩЕМ_АВТОМОБИЛЯ,
+    UNKNOWN_RUDIMENTS_UNDER_BOTTOM_CAR,
 
-    НЕ_ЗАКРЫТА_ДВЕРЬ_ШТУРМАНА,
+    THE_NAVIGATION_DOOR_IS_NOT_CLOSED,
 
-    НЕ_ЗАКРЫТА_ДВЕРЬ_ВОДИТЕЛЯ,
+    DRIVERS_DOOR_IS_NOT_CLOSED,
 
-    НЕ_ЗАКРЫТА_ЛЕВАЯ_ЗАДНЯЯ_ДВЕРЬ,
+    LEFT_REAR_DOOR_NOT_CLOSED,
 
-    НЕ_ЗАКРЫТА_ПРАВАЯ_ЗАДНЯЯ_ДВЕРЬ,
+    RIGHT_REAR_DOOR_NOT_CLOSED,
 
-    НЕИСПРАВНОСТЬ_ЛЕВЫХ_ЗАДНИХ_ОСВЕТИТЕЛЬНЫХ_ПРИБОРОВ,
+    LEFT_REAR_LIGHTING_FIXTURES_MALFUNCTION,
 
-    НЕИСПРАВНОСТЬ_ПРАВЫХ_ЗАДНИХ_ОСВЕТИТЕЛЬНЫХ_ПРИБОРОВ,
+    RIGHT_REAR_LIGHT_INSTRUMENTS ,
 
-    НЕИСПРАВНОСТЬ_ЛЕВЫХ_ПЕРЕДНИХ_ОСВЕТИТЕЛЬНЫХ_ПРИБОРОВ,
+    LEFT_FRONT_LIGHTING_FIXTURES ,
 
-    НЕИСПРАВНОСТЬ_ПРАВЫХ_ПЕРЕДНИХ_ОСВЕТИТЕЛЬНЫХ_ПРИБОРОВ,
+    RIGHT_FRONT_LIGHTING_FIXTURES_MALFUNCTION,
 
-    СПУСКАЕТ_ЛЕВОЕ_ПЕРЕДНЕЕ_КОЛЕСО,
+    LOWER_LEFT_FRONT_WHEEL,
 
-    СПУСКАЕТ_ПРАВОЕ_ПЕРЕДНЕЕ_КОЛЕСО,
+    LOWER_RIGHT_FRONT_WHEEL,
 
-    СПУСКАЕТ_ЛЕВОЕ_ЗАДНЕЕ_КОЛЕСО,
+    LOWER_LEFT_REAR_WHEEL,
 
-    СПУСКАЕТ_ПРАВОЕ_ЗАДНЕЕ_КОЛЕСО
+    LOWER_RIGHT_REAR_WHEEL
 }

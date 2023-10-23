@@ -37,7 +37,7 @@ public class MessageServiceImpl implements MessageService {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
 
-        String[] split = text.split(" ");
+        String[] split = text.split(", ");
 
         if (split.length == 3) {
             sendMessage.setText(doUser(update, split));

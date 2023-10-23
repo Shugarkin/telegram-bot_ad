@@ -25,7 +25,6 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final MalfunctionService malfunctionService;
 
 
-    добавить флаги для остальных функций и подумать про многопоточность иначе работать не будет
     @Override
     public void onUpdateReceived(Update update) {
         if(update.hasMessage()){
@@ -33,14 +32,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                 if (update.getMessage().getText().equals("/start")) {
                     sendMessageHello(update);
                     return;
-                }
-                if (callBackHandler.isMalfunctionFlag()) {
-                    try {
-                        execute(malfunctionService.addMalfunction(update, update.getMessage().getText()));
-                        return;
-                    } catch (TelegramApiException e) {
-                        throw new RuntimeException(e);
-                    }
                 }
                 try {
                     execute(messageService.whatAreWeDoing(update));
